@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^17.1.0"
+  },
+  "dependencies": {
+    "readline": "^1.3.0"
   }
 }
