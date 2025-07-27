@@ -18,7 +18,7 @@ app.post("/api/user/login", (req, res) => {
 });
 
 app.get("/api/books", (req, res) => {
-  res.status(201).json(books);
+  res.status(200).json(books);
 });
 
 app.get("/api/books/:id", (req, res) => {
@@ -26,7 +26,7 @@ app.get("/api/books/:id", (req, res) => {
   const bookIndex = books.findIndex((el) => el.id === id);
 
   if (bookIndex !== -1) {
-    res.status(201).json(books[bookIndex]);
+    res.status(200).json(books[bookIndex]);
   } else {
     res.status(404).json({ error: "Book isn't found" });
   }
@@ -66,7 +66,7 @@ app.put("/api/books/:id", (req, res) => {
       fileCover: fileCover,
       fileName: fileName,
     };
-    res.status(201).json(books[bookIndex]);
+    res.status(200).json(books[bookIndex]);
   } else {
     res.status(404).json({ error: "Book isn't found" });
   }
@@ -76,7 +76,7 @@ app.delete("/api/books/:id", (req, res) => {
   const { id } = req.params;
 
   books = books.filter((el) => el.id !== id);
-  res.status(201).json("ok");
+  res.status(200).json("ok");
 });
 
 const port = process.env.PORT || 3000;
