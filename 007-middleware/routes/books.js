@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import {v4 as uuid} from "uuid";
 
 import uploader from "../middlewares/upload.js";
 
@@ -43,7 +44,7 @@ router.post("/", uploader.single("file-key"), (req, res) => {
   const fileBook = req.file ? req.file.path : null;
 
   books.push({
-    id: (++id).toString(),
+    id: uuid(),
     title: title,
     description: description,
     authors: authors,
@@ -68,7 +69,7 @@ router.put("/:id", uploader.single("file-key"), (req, res) => {
 
   if (bookIndex !== -1) {
     books[bookIndex] = {
-      id: id.toString(),
+      id: books[bookIndex].id,
       title: title,
       description: description,
       authors: authors,
