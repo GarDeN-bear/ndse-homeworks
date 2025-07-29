@@ -1,5 +1,7 @@
 import express from "express";
 
+import {v4 as uuid} from "uuid";
+
 let user = {
   id: 1,
   mail: "test@mail.ru",
@@ -37,7 +39,7 @@ app.post("/api/books", (req, res) => {
     req.body;
 
   books.push({
-    id: (++id).toString(),
+    id: uuid(),
     title: title,
     description: description,
     authors: authors,
@@ -58,7 +60,7 @@ app.put("/api/books/:id", (req, res) => {
 
   if (bookIndex !== -1) {
     books[bookIndex] = {
-      id: id.toString(),
+      id: books[bookIndex].id,
       title: title,
       description: description,
       authors: authors,
