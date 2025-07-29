@@ -1,13 +1,11 @@
 import express from "express";
 
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 
 let user = {
   id: 1,
   mail: "test@mail.ru",
 };
-
-let id = 0;
 
 let books = [];
 

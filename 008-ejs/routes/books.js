@@ -9,7 +9,7 @@ const router = express.Router();
 let books = [];
 
 router.get("/", (req, res) => {
-  res.status(200).json(books);
+  res.status(200).render("index", { books: books });
 });
 
 router.get("/:id", (req, res) => {
