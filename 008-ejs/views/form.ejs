@@ -1,0 +1,35 @@
+<form method="POST" class="mt-5">
+  <div class="form-group">
+    <label for="inputTitle">Title</label>
+    <input
+      type="text"
+      value="<%= book.title %>"
+      name="title"
+      class="form-control"
+      id="title"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="inputAuthors">Authors</label>
+    <input
+      type="text"
+      value="<%= book.authors %>"
+      name="authors"
+      class="form-control"
+      id="authors"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="inputDescription">Description</label>
+    <textarea rows="3" name="description" class="form-control" id="description">
+ <%= book.description %>
+</textarea
+    >
+  </div>
+
+  <div class="form-group text-right">
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</form>
