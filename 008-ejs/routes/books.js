@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import { v4 as uuid } from "uuid";
 
 import uploader from "../middlewares/upload.js";
@@ -16,7 +15,7 @@ router.get("/create", (req, res) => {
   res.status(200).render('create', {title: "Adding book", book: {}});
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", uploader.single("file-key"), (req, res) => {
   const { title, description, authors, favorite, fileCover, fileName } =
     req.body;
   const fileBook = req.file ? req.file.path : null;
@@ -42,7 +41,7 @@ router.get("/:id", (req, res) => {
   if (bookIndex !== -1) {
     res.status(200).render("view", {book: books[bookIndex]});
   } else {
-    res.status(404);
+    res.status(404).redirect('/api/errors/404/');
   }
 });
 
@@ -60,11 +59,11 @@ router.get("/update/:id", (req, res) => {
   if (bookIndex !== -1) {
     res.status(200).render("update", {title: "Updating book", book: books[bookIndex]});
   } else {
-    res.status(404);
+    res.status(404).redirect('/api/errors/404/');
   }
 });
 
-router.post("/update/:id", (req, res) => {
+router.post("/update/:id", uploader.single("file-key"), (req, res) => {
   const { id } = req.params;
 
   const { title, description, authors, favorite, fileCover, fileName } =
@@ -86,7 +85,7 @@ router.post("/update/:id", (req, res) => {
       };
       res.status(201).redirect('/api/books/');
   } else {
-    res.status(404);
+    res.status(404).redirect('/api/errors/404/');
   }
   
 });
