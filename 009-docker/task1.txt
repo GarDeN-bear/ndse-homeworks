@@ -1,0 +1,112 @@
+Задание 1 - Docker CLI
+
+1. Загрузите образ busybox последней версии
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker pull busybox
+Using default tag: latest
+latest: Pulling from library/busybox
+90b9666d4aed: Pull complete 
+Digest: sha256:f9a104fddb33220ec80fc45a4e606c74aadf1ef7a3832eb0b05be9e90cd61f5f
+Status: Downloaded newer image for busybox:latest
+docker.io/library/busybox:latest
+
+2. Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker run --name pinger busybox ping -c 7 netology.ru
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=254 time=8.786 ms
+64 bytes from 51.250.51.8: seq=1 ttl=254 time=8.764 ms
+64 bytes from 51.250.51.8: seq=2 ttl=254 time=15.040 ms
+64 bytes from 51.250.51.8: seq=3 ttl=254 time=8.128 ms
+64 bytes from 51.250.51.8: seq=4 ttl=254 time=8.231 ms
+64 bytes from 51.250.51.8: seq=5 ttl=254 time=8.812 ms
+64 bytes from 51.250.51.8: seq=6 ttl=254 time=8.065 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 8.065/9.403/15.040 ms
+
+3. Выведите на список всех контейнеров - запущенных и остановленных
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                      PORTS     NAMES
+4e966cbc6098   busybox        "ping -c 7 netology.…"   55 minutes ago   Exited (0) 55 minutes ago             pinger
+
+4. Выведите на экран логи контейнера с именем pinger
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker logs pinger
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=254 time=8.786 ms
+64 bytes from 51.250.51.8: seq=1 ttl=254 time=8.764 ms
+64 bytes from 51.250.51.8: seq=2 ttl=254 time=15.040 ms
+64 bytes from 51.250.51.8: seq=3 ttl=254 time=8.128 ms
+64 bytes from 51.250.51.8: seq=4 ttl=254 time=8.231 ms
+64 bytes from 51.250.51.8: seq=5 ttl=254 time=8.812 ms
+64 bytes from 51.250.51.8: seq=6 ttl=254 time=8.065 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 8.065/9.403/15.040 ms
+
+5. Запустите второй раз контейнера с именем pinger
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker start pinger
+pinger
+
+6. Выведите на список всех контейнеров - запущенных и остановленных
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS                     PORTS     NAMES
+4e966cbc6098   busybox        "ping -c 7 netology.…"   About an hour ago   Exited (0) 2 minutes ago             pinger
+
+7. Выведите на экран логи контейнера с именем pinger
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker logs pinger
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=254 time=8.786 ms
+64 bytes from 51.250.51.8: seq=1 ttl=254 time=8.764 ms
+64 bytes from 51.250.51.8: seq=2 ttl=254 time=15.040 ms
+64 bytes from 51.250.51.8: seq=3 ttl=254 time=8.128 ms
+64 bytes from 51.250.51.8: seq=4 ttl=254 time=8.231 ms
+64 bytes from 51.250.51.8: seq=5 ttl=254 time=8.812 ms
+64 bytes from 51.250.51.8: seq=6 ttl=254 time=8.065 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 8.065/9.403/15.040 ms
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=254 time=7.282 ms
+64 bytes from 51.250.51.8: seq=1 ttl=254 time=18.178 ms
+64 bytes from 51.250.51.8: seq=2 ttl=254 time=7.729 ms
+64 bytes from 51.250.51.8: seq=3 ttl=254 time=7.689 ms
+64 bytes from 51.250.51.8: seq=4 ttl=254 time=16.217 ms
+64 bytes from 51.250.51.8: seq=5 ttl=254 time=9.392 ms
+64 bytes from 51.250.51.8: seq=6 ttl=254 time=8.735 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 7.282/10.746/18.178 ms
+
+8. Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker logs pinger 2>&1 | grep "ping statistics" -A 2
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 8.065/9.403/15.040 ms
+--
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 7.282/10.746/18.178 ms
+
+9. Удалите контейнер с именем pinger
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker rm pinger
+pinger
+
+10. Удалите образ busybox
+
+vboxuser@Ubuntu-20:~/netology/ndse-homeworks/009-docker$ docker rmi busybox:latest
+Untagged: busybox:latest
+Untagged: busybox@sha256:f9a104fddb33220ec80fc45a4e606c74aadf1ef7a3832eb0b05be9e90cd61f5f
+Deleted: sha256:6d3e4188a38af91b0c1577b9e88c53368926b2fe0e1fb985d6e8a70040520c4d
+Deleted: sha256:65014c70e84b6817fac42bb201ec5c1ea460a8da246cac0e481f5c9a9491eac0
