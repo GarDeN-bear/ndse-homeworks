@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  counter-service:
+    build: ./counter-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+  books-app:
+    build: ./books-app
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - COUNTER_SERVICE_URL=http://counter-service:3001
+    depends_on:
+      - counter-service
