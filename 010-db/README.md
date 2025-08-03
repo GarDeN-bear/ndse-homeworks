@@ -26,3 +26,41 @@
   authors: "string"
 }
 ``` 
+
+#### Решение 
+
+1. запрос(ы) для *вставки* данных минимум о двух книгах в коллекцию **books**
+
+```
+db.books.insertMany([
+    {
+        title: "The Great Gatsby",
+        description: "A story of wealth, love, and the American Dream in the 1920s",
+        authors: "F. Scott Fitzgerald",
+    },
+    {
+        title: "To Kill a Mockingbird",
+        description: "A powerful story of racial injustice and moral growth in the American South",
+        authors: "Harper Lee",
+    }
+])
+```
+
+2. запрос для *поиска* полей документов коллекции **books** по полю *title*
+
+```
+db.books.find({ title: "The Great Gatsby" })
+```
+
+3. запрос для *редактирования* полей: *description* и *authors* коллекции **books** по *_id* записи
+
+```
+db.books.updateOne(
+  { _id: db.books.find({ title: "The Great Gatsby" }).limit(1).next()._id },
+  {
+    $set: { description: "Обновлённое описание" },
+    $set: { authors: "Обновленный список авторов" }
+  }
+)
+```
+
